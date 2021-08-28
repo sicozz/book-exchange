@@ -1,6 +1,7 @@
 import LibraryDAO from "../dao/libraryDAO.js"
 
 export default class LibraryCtrl {
+
   static async apiGetUsers(req, res, next) {
     let usersPerPage = req.query.usersPerPage ? parseInt(req.query.usersPerPage, 10) : 20
     let page = req.query.page ? parseInt(req.query.page, 10) : 0
@@ -30,6 +31,23 @@ export default class LibraryCtrl {
     }
 
     res.json(response)
+  }
+
+  static async apiGetUserName(req, res, next) {
+    try {
+      const userId = req.params.id
+
+      let userResponse = await LibraryDAO.getUserName(userId)
+
+      if (!userResponse.error) {
+        res.json(userResponse)
+      } else {
+        res.status(400).json({ body: "Sing up failed" })
+      }
+    } catch (err) {
+      console.log(`user, ${err}`)
+      res.status(500).json({ error: err })
+    }
   }
 
   static async apiPostSingUp(req, res, next) {
@@ -78,8 +96,9 @@ export default class LibraryCtrl {
       const title = req.body.title
       const author = req.body.author
       const year = req.body.year
+      const state = req.body.state
       const image = req.body.image
-      const book = { title, author, year, image }
+      const book = { title, author, year, image, state }
 
       const usersResponse = await LibraryDAO.addBook(
         userId,
@@ -126,4 +145,5 @@ export default class LibraryCtrl {
       res.status(500).json({ error: err.message })
     }
   }
+
 }

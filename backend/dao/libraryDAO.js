@@ -2,7 +2,7 @@ import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectID
 let users
 
-export default class RestaurantsDAO {
+export default class LibraryDAO {
   static async injectDB(conn) {
     if (users) {
       return
@@ -17,7 +17,6 @@ export default class RestaurantsDAO {
     }
   }
 
-
   static async getUsers({
     filters = null,
     page = 0,
@@ -27,11 +26,14 @@ export default class RestaurantsDAO {
 
     if (filters) {
       if ("author" in filters) {
-        query = { "books.author": filters["author"] }
+        const authorRegEx = new RegExp(filters["author"])
+        query = { "books.author": { $regex: authorRegEx, $options: 'i' } }
       } else if ("bookTitle" in filters) {
-        query = { "books.title": filters["bookTitle"] }
+        const bookTitelRegEx = new RegExp(filters["bookTitle"])
+        query = { "books.title": { $regex: bookTitelRegEx, $options: 'i' } }
       } else if ("userName" in filters) {
-        query = { user_name: filters["userName"] }
+        const userNameRegEx = new RegExp(filters["userName"])
+        query = { user_name: { $regex: userNameRegEx, $options: 'i' } }
       }
 
     }
@@ -55,6 +57,19 @@ export default class RestaurantsDAO {
         `Unable to convert cursor to array or problem counting documents, ${err}`
       )
       return { usersList: [], totalNumUsers: 0 }
+    }
+  }
+
+  static async getUserName(userId) {
+    const { user_name } = await users.findOne(
+      { _id: ObjectId(userId) },
+      { user_name: 1 }
+    )
+
+    if (user_name) {
+      return { user_name }
+    } else {
+      return { user_name: "Not Such id" }
     }
   }
 

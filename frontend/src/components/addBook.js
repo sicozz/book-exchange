@@ -6,6 +6,7 @@ const AddBook = ({ userId }) => {
   const [author, setAuthor] = useState("")
   const [year, setYear] = useState("")
   const [image, setImage] = useState("")
+  const [state, setState] = useState("")
   const [message, setMessage] = useState("")
 
   const handleInput = (setFunction) => {
@@ -18,7 +19,7 @@ const AddBook = ({ userId }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const params = { title, author, year, image };
+    const params = { title, author, year, image, state };
 
     const options = {
       method: 'PUT',
@@ -80,6 +81,16 @@ const AddBook = ({ userId }) => {
           id="image"
           value={image}
           onChange={handleInput(setImage)}
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="state" className="form-label">Book state</label>
+        <input
+          type="text"
+          className="form-control"
+          id="state"
+          value={state}
+          onChange={handleInput(setState)}
         />
       </div>
       <button type="submit" className="btn btn-primary">Add</button>

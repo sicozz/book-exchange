@@ -7,9 +7,7 @@ const Home = ({ userId }) => {
   const [loading, setLoading] = useState(true)
   const [users, setUsers] = useState([])
 
-  const [author, setAuthor] = useState("")
-  const [bookTitle, setBookTitle] = useState("")
-  const [userName, setUserName] = useState("")
+  const [input, setInput] = useState("")
 
   const fetchUsers = async (url) => {
     setLoading(true)
@@ -33,61 +31,39 @@ const Home = ({ userId }) => {
   } else {
     return (<div className="bg-light">
       {/* Search section */}
-      <div className="first container bg-light pt-4">
-        <div className="row">
-          <form className="col">
-            <input
-              className="Nameform-control me-2"
-              type="search"
-              placeholder="Search by Title"
-              aria-label="Search"
-              value={bookTitle}
-              onInput={(event) => setBookTitle(event.target.value)} />
-            <button
-              className="btn btn-outline-success me-2"
-              type="submit"
-              onClick={() => fetchUsers(`${api}?book-title=${bookTitle}`)}>
-              Title
-            </button>
-          </form>
-
-          <form className="col">
-            <input
-              className="Nameform-control me-2"
-              type="search"
-              placeholder="Search by Author"
-              aria-label="Search"
-              value={author}
-              onInput={(event) => setAuthor(event.target.value)} />
-            <button
-              className="btn btn-outline-success me-2"
-              type="submit"
-              onClick={() => fetchUsers(`${api}?author=${author}`)}>
-              Author
-            </button>
-          </form>
-
-          <form className="col">
-            <input
-              className="Nameform-control me-2"
-              type="search"
-              placeholder="Search by User Name"
-              aria-label="Search"
-              value={userName}
-              onInput={(event) => setUserName(event.target.value)} />
-            <button
-              className="btn btn-outline-success me-2"
-              type="submit"
-              onClick={() => fetchUsers(`${api}?user-name=${userName}`)}>
-              User
-            </button>
-          </form>
-        </div>
+      <div className="container bg-light pt-4">
+        <form className="d-flex justify-content-center">
+          <input
+            className="Nameform-control me-2 search-bar border rounded"
+            type="search"
+            placeholder="Search books"
+            aria-label="Search"
+            value={input}
+            onInput={(event) => setInput(event.target.value)} />
+          <button
+            className="btn btn-outline-success me-2"
+            type="submit"
+            onClick={() => fetchUsers(`${api}?book-title=${input}`)}>
+            Title
+          </button>
+          <button
+            className="btn btn-outline-success me-2"
+            type="submit"
+            onClick={() => fetchUsers(`${api}?author=${input}`)}>
+            Author
+          </button>
+          <button
+            className="btn btn-outline-success me-2"
+            type="submit"
+            onClick={() => fetchUsers(`${api}?user-name=${input}`)}>
+            User
+          </button>
+        </form>
       </div>
 
       {/* Users */}
       <div className="bg-light">
-        <Users users={users} />
+        <Users userId={userId} users={users} />
       </div>
     </div >
     )

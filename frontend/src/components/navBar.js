@@ -14,20 +14,18 @@ const NavBar = ({ userId, setUserId }) => {
               <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/exchange">Exchanges</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/edition">Edit Books</Link>
+            </li>
+            <li className="nav-item">
               <Link
                 className="nav-link"
                 to="/"
                 onClick={() => setUserId("")}>
                 Log-Out
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/edition/">Edit Books</Link>
-            </li>
-            <li className="nav-item">
-              <button className="nav-link border-0 rounded bg-dark text-light" tabIndex="-1" aria-disabled="true">
-                {userId}
-              </button>
             </li>
           </ul>
         </div>
