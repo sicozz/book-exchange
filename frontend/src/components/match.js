@@ -21,7 +21,8 @@ const Match = ({ match }) => {
   }, [])
 
   return (<li className="list-group-item">
-    {`${user0UserName} and ${user1UserName} matched with ${match.book_title0} for${match.book_title1}`}
+    {`${user0UserName} and ${user1UserName} matched with `}
+    <b>{match.book_title0}</b> for <b>{match.book_title1}</b>
   </li>)
 }
 

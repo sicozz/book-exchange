@@ -19,7 +19,7 @@ const Trade = ({ trade }) => {
   }, [])
 
   return (<li className="list-group-item">
-    {`${fromUserName} is interested in ${trade.book_title}`}
+    {`${fromUserName} is interested in `} <b>{trade.book_title}</b>
   </li>)
 }
 

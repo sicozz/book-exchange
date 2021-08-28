@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const SingUp = ({ setUserId }) => {
   const apiSingUp = 'http://localhost:5000/api/library/sing-up/'
   const [userName, setUserName] = useState("")
-  const [number, setNumber] = useState(0)
+  const [number, setNumber] = useState("")
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
 
@@ -59,7 +59,7 @@ const SingUp = ({ setUserId }) => {
       <div className="mb-3">
         <label htmlFor="number" className="form-label">Telephone Number</label>
         <input
-          type="number"
+          type="text"
           className="form-control"
           id="number"
           value={number}
